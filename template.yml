@@ -1,0 +1,118 @@
+Resources:
+  CdkSampleQueue5EE69D51:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 300
+    Metadata:
+      aws:cdk:path: CdkSampleStack/CdkSampleQueue/Resource
+  CdkSampleQueuePolicyF9F8BD75:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: sqs:SendMessage
+            Condition:
+              ArnEquals:
+                aws:SourceArn:
+                  Ref: CdkSampleTopic2C761410
+            Effect: Allow
+            Principal:
+              Service: sns.amazonaws.com
+            Resource:
+              Fn::GetAtt:
+                - CdkSampleQueue5EE69D51
+                - Arn
+        Version: "2012-10-17"
+      Queues:
+        - Ref: CdkSampleQueue5EE69D51
+    Metadata:
+      aws:cdk:path: CdkSampleStack/CdkSampleQueue/Policy/Resource
+  CdkSampleQueueCdkSampleStackCdkSampleTopicF3F7DC119C72D9F6:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: sqs
+      TopicArn:
+        Ref: CdkSampleTopic2C761410
+      Endpoint:
+        Fn::GetAtt:
+          - CdkSampleQueue5EE69D51
+          - Arn
+    Metadata:
+      aws:cdk:path: CdkSampleStack/CdkSampleQueue/CdkSampleStackCdkSampleTopicF3F7DC11/Resource
+  CdkSampleTopic2C761410:
+    Type: AWS::SNS::Topic
+    Metadata:
+      aws:cdk:path: CdkSampleStack/CdkSampleTopic/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=1.67.0,@aws-cdk/aws-cloudwatch=1.67.0,@aws-cdk/aws-iam=1.67.0,@aws-cdk/aws-kms=1.67.0,@aws-cdk/aws-sns=1.67.0,@aws-cdk/aws-sns-subscriptions=1.67.0,@aws-cdk/aws-sqs=1.67.0,@aws-cdk/cloud-assembly-schema=1.67.0,@aws-cdk/core=1.67.0,@aws-cdk/cx-api=1.67.0,@aws-cdk/region-info=1.67.0,jsii-runtime=node.js/v14.0.0
+    Metadata:
+      aws:cdk:path: CdkSampleStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+
