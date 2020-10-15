@@ -43,10 +43,22 @@ Resources:
     Type: AWS::SNS::Topic
     Metadata:
       aws:cdk:path: CdkSampleStack/CdkSampleTopic/Resource
+  CdkSampleBucket2B84B1A4:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: test-kasai-2020-10-15
+      LifecycleConfiguration:
+        Rules:
+          - ExpirationInDays: 1
+            Status: Enabled
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: CdkSampleStack/CdkSampleBucket/Resource
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Modules: aws-cdk=1.67.0,@aws-cdk/aws-cloudwatch=1.67.0,@aws-cdk/aws-iam=1.67.0,@aws-cdk/aws-kms=1.67.0,@aws-cdk/aws-sns=1.67.0,@aws-cdk/aws-sns-subscriptions=1.67.0,@aws-cdk/aws-sqs=1.67.0,@aws-cdk/cloud-assembly-schema=1.67.0,@aws-cdk/core=1.67.0,@aws-cdk/cx-api=1.67.0,@aws-cdk/region-info=1.67.0,jsii-runtime=node.js/v14.0.0
+      Modules: aws-cdk=1.67.0,@aws-cdk/aws-cloudwatch=1.67.0,@aws-cdk/aws-events=1.67.0,@aws-cdk/aws-iam=1.67.0,@aws-cdk/aws-kms=1.67.0,@aws-cdk/aws-s3=1.67.0,@aws-cdk/aws-sns=1.67.0,@aws-cdk/aws-sns-subscriptions=1.67.0,@aws-cdk/aws-sqs=1.67.0,@aws-cdk/cloud-assembly-schema=1.67.0,@aws-cdk/core=1.67.0,@aws-cdk/cx-api=1.67.0,@aws-cdk/region-info=1.67.0,jsii-runtime=node.js/v14.0.0
     Metadata:
       aws:cdk:path: CdkSampleStack/CDKMetadata/Default
     Condition: CDKMetadataAvailable
